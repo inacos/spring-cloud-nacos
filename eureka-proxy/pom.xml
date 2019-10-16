@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>cn.springcloud.nacos</groupId>
+        <groupId>net.nacos</groupId>
         <artifactId>spring-cloud-nacos</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>

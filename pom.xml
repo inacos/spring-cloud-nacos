@@ -4,20 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.springcloud.nacos</groupId>
+    <groupId>net.nacos</groupId>
     <artifactId>spring-cloud-nacos</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <url>https://github.com/SpringCloud/spring-cloud-nacos</url>
+    <url>https://github.com/inacos/spring-cloud-nacos</url>
     <organization>
-        <name>Spring Cloud中国社区</name>
-        <url>http://springcloud.cn/</url>
+        <name>Nacos+</name>
+        <url>https://nacos.net/</url>
     </organization>
     <developers>
         <developer>
             <name>charles</name>
             <email>charles.v.he@gmail.com</email>
-            <organization>Spring Cloud中国社区</organization>
+            <organization>Nacos+</organization>
             <url>https://github.com/charlesvhe</url>
         </developer>
     </developers>
@@ -30,9 +30,9 @@
     </licenses>
     <scm>
         <tag>master</tag>
-        <url>git@github.com:SpringCloud/spring-cloud-nacos.git</url>
-        <connection>scm:git:git@github.com:SpringCloud/spring-cloud-nacos.git</connection>
-        <developerConnection>scm:git:git@github.com:SpringCloud/spring-cloud-nacos.git</developerConnection>
+        <url>git@github.com:inacos/spring-cloud-nacos.git</url>
+        <connection>scm:git:git@github.com:inacos/spring-cloud-nacos.git</connection>
+        <developerConnection>scm:git:git@github.com:inacos/spring-cloud-nacos.git</developerConnection>
     </scm>
 
     <modules>
