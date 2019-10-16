@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.springcloud.nacos</groupId>
+    <artifactId>spring-cloud-nacos</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <url>https://github.com/SpringCloud/spring-cloud-nacos</url>
+    <organization>
+        <name>Spring Cloud中国社区</name>
+        <url>http://springcloud.cn/</url>
+    </organization>
+    <developers>
+        <developer>
+            <name>charles</name>
+            <email>charles.v.he@gmail.com</email>
+            <organization>Spring Cloud中国社区</organization>
+            <url>https://github.com/charlesvhe</url>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <tag>master</tag>
+        <url>git@github.com:SpringCloud/spring-cloud-nacos.git</url>
+        <connection>scm:git:git@github.com:SpringCloud/spring-cloud-nacos.git</connection>
+        <developerConnection>scm:git:git@github.com:SpringCloud/spring-cloud-nacos.git</developerConnection>
+    </scm>
+
+    <modules>
+        <module>eureka-proxy</module>
+        <module>config-proxy</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>sonatype-oss-release</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <configuration>
+                            <doclint>none</doclint>
+                        </configuration>
+                    </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>sonatype-nexus-staging</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+</project>
