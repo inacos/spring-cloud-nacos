@@ -36,8 +36,7 @@
     </scm>
 
     <modules>
-        <module>eureka-proxy</module>
-        <module>config-proxy</module>
+        <module>spring-cloud-nacos-proxy</module>
     </modules>
 
     <build>
