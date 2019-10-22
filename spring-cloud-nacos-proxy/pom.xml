@@ -17,6 +17,8 @@
     <modules>
         <module>spring-cloud-nacos-proxy-config</module>
         <module>spring-cloud-nacos-proxy-eureka</module>
+        <module>spring-cloud-nacos-config-proxy-example</module>
+        <module>spring-cloud-nacos-eureka-proxy-example</module>
     </modules>
 
     <properties>
