@@ -41,6 +41,9 @@
         <developerConnection>scm:git:git@github.com:inacos/spring-cloud-nacos.git</developerConnection>
     </scm>
 
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
     <modules>
         <module>spring-cloud-nacos-proxy</module>
     </modules>
@@ -50,6 +53,10 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
