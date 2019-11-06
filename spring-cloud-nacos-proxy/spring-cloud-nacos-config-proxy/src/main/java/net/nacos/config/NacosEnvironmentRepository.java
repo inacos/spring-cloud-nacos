@@ -14,10 +14,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.Properties;
 
-/**
- * @author liju2
- * @date 2019/10/18
- */
 public class NacosEnvironmentRepository implements EnvironmentRepository {
 
     private ConfigService configService;

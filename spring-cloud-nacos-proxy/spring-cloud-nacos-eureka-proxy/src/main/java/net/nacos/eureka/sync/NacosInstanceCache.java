@@ -7,10 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author liju2
- * @date 2019/10/10
- */
 public class NacosInstanceCache {
 
     private Map<String, List<Instance>> instanceMap= new HashMap<>();

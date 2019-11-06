@@ -14,10 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-/**
- * @author liju2
- * @date 2019/10/10
- */
 @Component
 public class NacosEventListener implements EventListener {
 
