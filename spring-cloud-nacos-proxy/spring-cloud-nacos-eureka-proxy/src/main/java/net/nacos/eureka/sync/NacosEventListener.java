@@ -10,6 +10,7 @@ import com.netflix.discovery.shared.Application;
 import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -23,6 +24,9 @@ public class NacosEventListener implements EventListener {
 
     @Autowired
     private PeerAwareInstanceRegistry peerAwareInstanceRegistry;
+
+    @Autowired
+    private InetUtils inetUtils;
 
     @Override
     public void onEvent(Event event) {
@@ -86,6 +90,9 @@ public class NacosEventListener implements EventListener {
     private void register(Instance instance) {
         String appName = instance.getServiceName().substring(instance.getServiceName().lastIndexOf('@') + 1);
         String discoveryClient = instance.getMetadata().get(ProxyConstants.METADATA_DISCOVERY_CLIENT);
+        InetUtils.HostInfo hostInfo = inetUtils.findFirstNonLoopbackHostInfo();
+        String hostname = hostInfo.getHostname();
+
         if (StringUtils.isEmpty(discoveryClient)) {
             Map<String, String> metadata = new HashMap<>(instance.getMetadata());
             metadata.put(ProxyConstants.METADATA_DISCOVERY_CLIENT, ProxyConstants.NACOS_VALUE);
@@ -93,6 +100,7 @@ public class NacosEventListener implements EventListener {
                     .setAppName(appName.toLowerCase())
                     .setIPAddr(instance.getIp())
                     .setPort(instance.getPort())
+                    .setHostName(hostname)
                     .setInstanceId(String.format("%s:%s:%s", appName, instance.getIp(), instance.getPort()))
                     .setDataCenterInfo(() -> DataCenterInfo.Name.MyOwn)
                     .setMetadata(metadata)

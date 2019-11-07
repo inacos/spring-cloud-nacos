@@ -1,8 +1,11 @@
 package net.nacos.eureka.sync;
 
 import com.alibaba.nacos.api.naming.NamingService;
+import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.api.naming.pojo.ListView;
 import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
+import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ public class NacosSynchronizer {
     private NamingService namingService;
     @Autowired
     private NacosEventListener listener;
+    @Autowired
+    private PeerAwareInstanceRegistry peerAwareInstanceRegistry;
 
     @PostConstruct
     public void init() {
@@ -47,7 +52,16 @@ public class NacosSynchronizer {
 
     public void syncService() throws Exception {
         ListView<String> serviceList = namingService.getServicesOfServer(1, 1000);
+
         for (String service : serviceList.getData()) {
+            List<Instance> instances = namingService.getAllInstances(service);
+            for (Instance instance : instances) {
+                if (!isFromEureka(instance)) {
+                    String instanceId = String.format("%s:%s:%s", service, instance.getIp(), instance.getPort());
+                    peerAwareInstanceRegistry.renew(service.toUpperCase(), instanceId, true);
+                }
+            }
+
             List<ServiceInfo> list = namingService.getSubscribeServices();
             Optional<ServiceInfo> optional = list.stream().filter(serviceInfo -> serviceInfo.getName().equals(service)).findFirst();
             if (!optional.isPresent()) {
@@ -55,5 +69,10 @@ public class NacosSynchronizer {
             }
         }
 
+    }
+
+    private boolean isFromEureka(Instance instance) {
+        String discoveryClient = instance.getMetadata().get(ProxyConstants.METADATA_DISCOVERY_CLIENT);
+        return !StringUtils.isEmpty(discoveryClient) && discoveryClient.equals(ProxyConstants.EUREKA_VALUE);
     }
 }

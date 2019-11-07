@@ -57,7 +57,7 @@ public class EurekaSynchronizer implements ApplicationListener {
 
     private void setStatus(EurekaInstanceRenewedEvent evt) {
         InstanceInfo instanceInfo = evt.getInstanceInfo();
-        if (isFromNacos(instanceInfo)) {
+        if (instanceInfo == null || isFromNacos(instanceInfo)) {
             return;
         }
 
