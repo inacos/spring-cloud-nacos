@@ -18,10 +18,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author liju2
- * @date 2019/10/10
- */
 @Component
 public class NacosSynchronizer {
     private static final Logger log = LoggerFactory.getLogger(NacosSynchronizer.class);

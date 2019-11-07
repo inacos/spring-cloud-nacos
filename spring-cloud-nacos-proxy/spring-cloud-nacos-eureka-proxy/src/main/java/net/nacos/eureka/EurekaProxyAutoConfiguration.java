@@ -15,10 +15,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-/**
- * @author liju2
- * @date 2019/10/10
- */
 @Configuration
 @EnableConfigurationProperties(NacosDiscoveryProperties.class)
 @AutoConfigureAfter({AutoServiceRegistrationConfiguration.class,

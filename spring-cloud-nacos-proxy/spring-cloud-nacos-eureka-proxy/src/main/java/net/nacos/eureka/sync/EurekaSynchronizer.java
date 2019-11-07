@@ -25,10 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * @author liju2
- * @date 2019/10/10
- */
 @Component
 public class EurekaSynchronizer implements ApplicationListener {
     private static final Logger log = LoggerFactory.getLogger(EurekaSynchronizer.class);
