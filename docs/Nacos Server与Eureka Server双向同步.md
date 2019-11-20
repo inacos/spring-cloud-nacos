@@ -64,7 +64,29 @@ Nacos Sync 是一个支持多种注册中心的同步组件，基于 SpringBoot 
 
 ### 3.1 组件开发
 
-开发一个Spring Boot Starter,加入到Eureka Server或Nacos Server中可以实现双向注册。
+组件采用SpringBoot自动配置方式构建，需要在pom文件中添加组件的依赖，并且在项目中添加Nacos的配置文件，Spring Boot在启动时，会自动加载配置。
+
+* Eureka注册中心
+```
+<dependency>
+    <groupId>net.nacos</groupId>
+    <artifactId>spring-cloud-nacos-eureka-proxy</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+* Spring Cloud Config配置中心
+```
+<dependency>
+    <groupId>net.nacos</groupId>
+    <artifactId>spring-cloud-nacos-config-proxy</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+* application.properties配置文件
+```
+spring.cloud.nacos.config.serverAddr=localhost:8848
+```
 
 ### 3.3 spring-cloud-nacos组件介绍
 

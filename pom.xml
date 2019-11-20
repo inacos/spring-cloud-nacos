@@ -8,6 +8,9 @@
     <artifactId>spring-cloud-nacos</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+
+    <name>Nacos Plus for Spring Cloud ${project.version}</name>
+    <description>Top project pom.xml file</description>
     <url>https://github.com/inacos/spring-cloud-nacos</url>
     <organization>
         <name>Nacos+</name>
