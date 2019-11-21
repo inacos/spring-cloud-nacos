@@ -13,20 +13,20 @@
 Spring Cloud应用默认不支持启动时双向注册，但是阿里商业版上云组件支持。
 也就是引入对应的组件，当应用启动的时候同时向Eureka和Nacos实现双向注册。
 
-![](/img/1.png)
+![](img/1.png)
 如上图所示，如果只把旧应用只改一部分，会出现只有改造的应用能调到新应用。未改造的应用会出现调不到新应用的情况。即，需要如下图所示的方式，旧应用全部升级改造为双注册到注册中心，才可以支持。
 
-![](/img/2.png)
+![](img/2.png)
 >但是旧应用无法保证同一时刻全部升级改造为同时注册，因此该方案论证失败。
 
 
 ### 2.2 Nacos Sync方案
 
 Nacos Sync 是一个支持多种注册中心的同步组件，基于 SpringBoot 开发框架，数据层采用 Spring Data JPA，遵循了标准的 JPA 访问规范，支持多种数据源存储，默认使用 Hibernate 实现，更加方便的支持表的自动创建更新。但目前最新版本是，
-![](/img/nacos-syn1.jpg)
+![](img/nacos-syn1.jpg)
 
 0.4.0 规划介绍才支持Eureka与Nacos双向同步。下面表格介绍了目前支持的几种同步类型，并且说明了在 Dubbo 和 Spring Cloud 下是否支持同步，表格中列举的几种注册中心，无论单向还是双向同步都是在和 Nacos 进行交互。
-![](/img/nacos-syn2.png)
+![](img/nacos-syn2.png)
 
 >从上图中可以知道，目前不支持Nacos与Eureka双向同步。不支持双向同步，不建议使用。
 
@@ -36,7 +36,7 @@ Nacos Sync 是一个支持多种注册中心的同步组件，基于 SpringBoot 
 
 设计思路是注册中心服务端进行双向同步，做到微服务端完全无侵入，可以随业务迭代逐步完成升级和迁移。改造Eureka Server，Eureka Server引入同步组件实现Nacos和Eureka之间实现双向同步，如下图所示：
 
-![](/img/3.png)
+![](img/3.png)
 
 ##### 2.3.2 迁移步骤
 
@@ -92,7 +92,7 @@ spring.cloud.nacos.config.serverAddr=localhost:8848
 
 核心代码主要是NacosSynchronizer.java和EurekaSynchronizer.java,请自行阅读。
 github地址:https://github.com/inacos/spring-cloud-nacos
-![](/img/sc-nacos-code.jpg)
+![](img/sc-nacos-code.jpg)
 
 ## 4.实现迁移落地
 
