@@ -12,6 +12,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.client.serviceregistry.AutoServiceRegistrationAutoConfiguration;
 import org.springframework.cloud.client.serviceregistry.AutoServiceRegistrationConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.Import;
 @AutoConfigureAfter({AutoServiceRegistrationConfiguration.class,
         AutoServiceRegistrationAutoConfiguration.class, PeerAwareInstanceRegistry.class})
 @Import({EurekaSynchronizer.class, NacosSynchronizer.class})
+@ComponentScan("net.nacos.eureka")
 public class EurekaProxyAutoConfiguration {
 
     @Bean
