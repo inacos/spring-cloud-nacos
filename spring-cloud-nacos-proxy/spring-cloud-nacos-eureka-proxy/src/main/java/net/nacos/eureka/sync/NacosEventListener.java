@@ -97,6 +97,8 @@ public class NacosEventListener implements EventListener {
                     .setIPAddr(instance.getIp())
                     .setPort(instance.getPort())
                     .setHostName(hostname)
+                    .setVIPAddress(appName)
+                    .setSecureVIPAddress(appName)
                     .setInstanceId(String.format("%s:%s:%s", appName, instance.getIp(), instance.getPort()))
                     .setDataCenterInfo(() -> DataCenterInfo.Name.MyOwn)
                     .setMetadata(metadata)
