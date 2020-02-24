@@ -76,11 +76,11 @@ public class NacosEventListener implements EventListener {
             status = InstanceInfo.InstanceStatus.DOWN;
         }
         peerAwareInstanceRegistry.statusUpdate(instanceInfo.getAppName(), instanceInfo.getId(), status,
-                instanceInfo.getLastDirtyTimestamp() + "", true);
+                instanceInfo.getLastDirtyTimestamp() + "", false);
     }
 
     private void deregister(InstanceInfo instanceInfo) {
-        peerAwareInstanceRegistry.cancel(instanceInfo.getAppName(), instanceInfo.getInstanceId(), true);
+        peerAwareInstanceRegistry.cancel(instanceInfo.getAppName(), instanceInfo.getInstanceId(), false);
     }
 
     private void register(Instance instance) {
@@ -102,7 +102,7 @@ public class NacosEventListener implements EventListener {
                     .setInstanceId(String.format("%s:%s:%s", appName, instance.getIp(), instance.getPort()))
                     .setDataCenterInfo(() -> DataCenterInfo.Name.MyOwn)
                     .setMetadata(metadata)
-                    .build(), true);
+                    .build(), false);
         }
     }
 
