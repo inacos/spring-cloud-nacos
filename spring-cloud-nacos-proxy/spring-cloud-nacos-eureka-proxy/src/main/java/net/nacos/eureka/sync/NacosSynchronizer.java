@@ -54,7 +54,7 @@ public class NacosSynchronizer {
             for (Instance instance : instances) {
                 if (!isFromEureka(instance)) {
                     String instanceId = String.format("%s:%s:%s", service, instance.getIp(), instance.getPort());
-                    peerAwareInstanceRegistry.renew(service.toUpperCase(), instanceId, true);
+                    peerAwareInstanceRegistry.renew(service.toUpperCase(), instanceId, false);
                 }
             }
 
