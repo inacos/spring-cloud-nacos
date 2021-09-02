@@ -68,7 +68,7 @@ public class NacosEventListener implements EventListener {
         }
     }
 
-    private void setStatus(InstanceInfo instanceInfo, boolean up) {
+    protected void setStatus(InstanceInfo instanceInfo, boolean up) {
         InstanceInfo.InstanceStatus status;
         if (up) {
             status = InstanceInfo.InstanceStatus.UP;
@@ -79,11 +79,11 @@ public class NacosEventListener implements EventListener {
                 instanceInfo.getLastDirtyTimestamp() + "", false);
     }
 
-    private void deregister(InstanceInfo instanceInfo) {
+    protected void deregister(InstanceInfo instanceInfo) {
         peerAwareInstanceRegistry.cancel(instanceInfo.getAppName(), instanceInfo.getInstanceId(), false);
     }
 
-    private void register(Instance instance) {
+    protected void register(Instance instance) {
         String appName = instance.getServiceName().substring(instance.getServiceName().lastIndexOf('@') + 1);
         String discoveryClient = instance.getMetadata().get(ProxyConstants.METADATA_DISCOVERY_CLIENT);
         InetUtils.HostInfo hostInfo = inetUtils.findFirstNonLoopbackHostInfo();
@@ -106,7 +106,7 @@ public class NacosEventListener implements EventListener {
         }
     }
 
-    private boolean isFromEureka(Instance instance) {
+    protected boolean isFromEureka(Instance instance) {
         String discoveryClient = instance.getMetadata().get(ProxyConstants.METADATA_DISCOVERY_CLIENT);
         return !StringUtils.isEmpty(discoveryClient) && discoveryClient.equals(ProxyConstants.EUREKA_VALUE);
     }

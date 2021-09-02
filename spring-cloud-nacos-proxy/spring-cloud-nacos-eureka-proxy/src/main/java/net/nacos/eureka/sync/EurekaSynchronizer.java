@@ -51,7 +51,7 @@ public class EurekaSynchronizer implements ApplicationListener {
         }
     }
 
-    private void setStatus(EurekaInstanceRenewedEvent evt) {
+    protected void setStatus(EurekaInstanceRenewedEvent evt) {
         InstanceInfo instanceInfo = evt.getInstanceInfo();
         if (instanceInfo == null || isFromNacos(instanceInfo)) {
             return;
@@ -74,7 +74,7 @@ public class EurekaSynchronizer implements ApplicationListener {
         }
     }
 
-    private void deregister(EurekaInstanceCanceledEvent evt) {
+    protected void deregister(EurekaInstanceCanceledEvent evt) {
         String serverId = evt.getServerId();
         String appName = evt.getAppName();
 
@@ -96,7 +96,7 @@ public class EurekaSynchronizer implements ApplicationListener {
         }
     }
 
-    private void register(EurekaInstanceRegisteredEvent evt) {
+    protected void register(EurekaInstanceRegisteredEvent evt) {
         InstanceInfo instanceInfo = evt.getInstanceInfo();
         if (isFromNacos(instanceInfo)) {
             return;
@@ -114,7 +114,7 @@ public class EurekaSynchronizer implements ApplicationListener {
         }
     }
 
-    private Instance getNacosInstanceFromEureka(InstanceInfo instanceInfo) {
+    protected Instance getNacosInstanceFromEureka(InstanceInfo instanceInfo) {
         Map<String, String> metadata = new HashMap<>(instanceInfo.getMetadata());
         metadata.put(ProxyConstants.METADATA_DISCOVERY_CLIENT, ProxyConstants.EUREKA_VALUE);
         Instance instance = new Instance();
@@ -128,7 +128,7 @@ public class EurekaSynchronizer implements ApplicationListener {
         return instance;
     }
 
-    private boolean isFromNacos(InstanceInfo instanceInfo) {
+    protected boolean isFromNacos(InstanceInfo instanceInfo) {
         String discoveryClient = instanceInfo.getMetadata().get(ProxyConstants.METADATA_DISCOVERY_CLIENT);
         return !StringUtils.isEmpty(discoveryClient) && discoveryClient.equals(ProxyConstants.NACOS_VALUE);
     }
