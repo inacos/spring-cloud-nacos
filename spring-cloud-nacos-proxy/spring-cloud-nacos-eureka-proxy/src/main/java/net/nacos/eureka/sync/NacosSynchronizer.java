@@ -4,19 +4,19 @@ import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.api.naming.pojo.ListView;
 import com.alibaba.nacos.api.naming.pojo.ServiceInfo;
+import com.netflix.appinfo.InstanceInfo;
 import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class NacosSynchronizer {
@@ -54,7 +54,14 @@ public class NacosSynchronizer {
             for (Instance instance : instances) {
                 if (!isFromEureka(instance)) {
                     String instanceId = String.format("%s:%s:%s", service, instance.getIp(), instance.getPort());
-                    peerAwareInstanceRegistry.renew(service.toUpperCase(), instanceId, false);
+                    String appName = instance.getServiceName().substring(instance.getServiceName().lastIndexOf('@') + 1);
+                    InstanceInfo eurekaInstance = peerAwareInstanceRegistry.getInstanceByAppAndId(appName, instanceId);
+                    if (eurekaInstance != null) {
+                        peerAwareInstanceRegistry.renew(service.toUpperCase(), instanceId, false);
+                    } else {
+                        listener.register(instance);
+                    }
+
                 }
             }
 
