@@ -54,12 +54,15 @@ public class NacosSynchronizer {
             for (Instance instance : instances) {
                 if (!isFromEureka(instance)) {
                     String instanceId = String.format("%s:%s:%s", service, instance.getIp(), instance.getPort());
-                    String appName = instance.getServiceName().substring(instance.getServiceName().lastIndexOf('@') + 1);
-                    InstanceInfo eurekaInstance = peerAwareInstanceRegistry.getInstanceByAppAndId(appName, instanceId);
+                    InstanceInfo eurekaInstance = peerAwareInstanceRegistry.getInstanceByAppAndId(service.toUpperCase(), instanceId);
+                    log.info("eurekaInstance :{}", eurekaInstance);
                     if (eurekaInstance != null) {
+                        log.info("nacos -> eureka, renew instance by timer, service name :{}, instanceId :{}", service, instanceId);
                         peerAwareInstanceRegistry.renew(service.toUpperCase(), instanceId, false);
                     } else {
                         listener.register(instance);
+                        log.info("nacos -> eureka, register eureka instance, service name :{}, instanceId :{}, because eureka instance null bug nacos exists this instance",
+                            service, instanceId);
                     }
 
                 }
