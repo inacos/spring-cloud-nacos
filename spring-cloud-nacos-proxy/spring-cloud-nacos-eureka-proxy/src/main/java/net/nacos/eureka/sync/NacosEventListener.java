@@ -86,8 +86,7 @@ public class NacosEventListener implements EventListener {
     protected void register(Instance instance) {
         String appName = instance.getServiceName().substring(instance.getServiceName().lastIndexOf('@') + 1);
         String discoveryClient = instance.getMetadata().get(ProxyConstants.METADATA_DISCOVERY_CLIENT);
-        InetUtils.HostInfo hostInfo = inetUtils.findFirstNonLoopbackHostInfo();
-        String hostname = hostInfo.getHostname();
+        String hostname =instance.getIp();
 
         if (StringUtils.isEmpty(discoveryClient)) {
             Map<String, String> metadata = new HashMap<>(instance.getMetadata());
